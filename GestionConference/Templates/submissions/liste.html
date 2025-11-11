@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Mes soumissions {% if request.resolver_match.kwargs.conference_id %}pour la conférence {{ request.resolver_match.kwargs.conference_id }}{% endif %}</h1>
+
+<table border="1" cellspacing="0" cellpadding="6">
+<tr>
+    <th>Titre</th>
+    <th>Statut</th>
+    <th>Utilisateur</th>
+    <th>Conférence</th>
+    <th>Date de soumission</th>
+    <th>Paiement</th>
+    <th>Détails</th>
+    <th>Modifier</th>
+</tr>
+
+{% for submission in submissions %}
+<tr>
+    <td>{{ submission.title }}</td>
+    <td>{{ submission.get_status_display }}</td>
+    <td>{{ submission.user.username }}</td>
+    <td>{{ submission.conference.name }}</td>
+    <td>{{ submission.submission_date|date:"d/m/Y H:i" }}</td>
+
+    <td>{% if submission.payed %}✅ Payé{% else %}❌ Non payé{% endif %}</td>
+    <td><a href="{% url 'submission_detail' submission.pk %}">Détails</a></td>
+    <td>
+        {% if submission.status != "accepted" and submission.status != "rejected" %}
+            <a href="{% url 'update_submission' submission.pk %}">Modifier</a>
+        {% endif %}
+    </td>
+</tr>
+{% empty %}
+<tr><td colspan="8">Aucune soumission trouvée.</td></tr>
+{% endfor %}
+</table>
+
+<!-- Bouton ajouter une soumission -->
+<a href="{% url 'add_submission' %}">Ajouter une soumission</a>
+
+{% endblock %}

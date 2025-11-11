@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>{{ submission.title }}</h2>
+<p><strong>Résumé :</strong> {{ submission.abstract }}</p>
+<p><strong>Mots-clés :</strong> {{ submission.keywords }}</p>
+<p><strong>Conférence :</strong> {{ submission.conference.name }}</p>
+<p><strong>Auteur :</strong> {{ submission.user.username }}</p>
+<p><strong>Statut :</strong> {{ submission.get_status_display }}</p>
+<p><strong>Date :</strong> {{ submission.submission_date|date:"d/m/Y H:i" }}</p>
+
+<p><strong>Paiement :</strong> {% if submission.payed %}✅ Payé{% else %}❌ Non payé{% endif %}</p>
+<p><strong>Fichier PDF :</strong> <a href="{{ submission.paper.url }}" download>Télécharger</a></p>
+
+{% endblock %}

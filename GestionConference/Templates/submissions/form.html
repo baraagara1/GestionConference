@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if view.object.pk %}
+    <h1>Modifier la soumission {{ object.title }}</h1>
+{% else %}
+    <h1>Ajouter une nouvelle soumission</h1>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="submit">Enregistrer</button>
+</form>
+{% endblock %}

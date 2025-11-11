@@ -15,9 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.shortcuts import redirect
 from django.urls import path ,include
-
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('conferences/',include("ConferenceApp.urls"))
-]
+    path('', lambda req: redirect("liste_conferences")),
+    path('conferences/', include("ConferenceApp.urls")),
+    path('user/', include("UserApp.urls")),
+     path('submissions/', include('SubmissionApp.urls'))
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

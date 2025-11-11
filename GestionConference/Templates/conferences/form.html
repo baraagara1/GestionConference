@@ -1,10 +1,14 @@
-<h1>Formulaire d'ajout</h1>
-<h1 class="mt-3">{{ view.object|yesno:"Modifier la conférence,Ajouter une conférence" }}</h1>
-
+{% extends 'base.html' %}
+{% block content %}
+{% if view.object.pk %}
+    <h1>Formulaire de modification {{object.name}}</h1>
+{% else %}
+    <h1>Formulaire d'ajout</h1>
+{% endif %}
+<!-- <h1 class="mt-3">{{ view.object|yesno:"Modifier la conférence,Ajouter une conférence" }}</h1> -->
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button class="btn btn-primary">Enregistrer</button>
+    <button class="submit">Enregistrer</button>
   </form>
-</body>
-</html>
+{% endblock %}
