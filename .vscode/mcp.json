@@ -1,0 +1,12 @@
+{
+  "servers": {
+    "Conference_Assistant": {
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "run",
+        "Conference_Assistant.py"
+      ]
+    }
+  }
+}
